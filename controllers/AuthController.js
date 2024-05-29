@@ -42,10 +42,6 @@ exports.signUp = async (request, response) => {
   
 }
 
-exports.logout = async (request, response) => {
-  logout;
-};
-
 exports.userProfile = async(request, response) =>{
   const { id } = request.user;
   try {
