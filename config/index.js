@@ -52,7 +52,6 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 const isProduction = process.env.NODE_ENV === "production";
 const baseUri = process.env.baseUri;
 
-const dataFetchLimit = 12;
 module.exports = {
   DB_CONNECTION_DIALECT,
   DB_HOST,
@@ -63,6 +62,5 @@ module.exports = {
   jwtConfig,
   port,
   baseUri,
-  isProduction,
-  dataFetchLimit
+  isProduction
 };
