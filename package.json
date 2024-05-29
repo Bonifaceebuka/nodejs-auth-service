@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "This is a NodeJS backend service that powers user authentication",
   "license": "MIT",
-  "repository": "https://github.com/Bonifaceebuka/summitech-node-developer-test.git",
+  "repository": "https://github.com/Bonifaceebuka/nodejs-auth-service",
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www"
