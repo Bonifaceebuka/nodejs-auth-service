@@ -34,7 +34,9 @@ exports.signUp = async (request, response) => {
       data: user
   });
   } catch (error) {
-    return response.status(400).json({ error: 'Unable to create your account!' });
+    return response
+          .status(500)
+          .json({ error: "Internal server error just occured!" });
   }
  
   
@@ -44,6 +46,27 @@ exports.logout = async (request, response) => {
   logout;
 };
 
+exports.userProfile = async(request, response) =>{
+  const { id } = request.user;
+  try {
+    if (id) {
+      const user = await User.findByPk(id);
+      if (!user){
+        return response
+            .status(404)
+            .json({ error: "User profile not found!" });
+      }
+      return response.status(200).json({
+        message: 'User profile', 
+        data: user
+    });
+    }
+  } catch (error) {
+    return response
+          .status(500)
+          .json({ error: "Internal server error just occured!" });
+  }
+}
 
 ///Login Logic
 exports.signIn = async (request, response) => {
@@ -53,7 +76,7 @@ exports.signIn = async (request, response) => {
     if (!user) {
         return response
             .status(400)
-            .json({ error: "Invalid login details!", success: false });
+            .json({ error: "Invalid login details!" });
       }
     if(await bcrypt.compare(password, user.password)){
       const token = loginWebToken(user);
@@ -66,13 +89,13 @@ exports.signIn = async (request, response) => {
     else{
       return response
         .status(400)
-        .json({ error: "Invalid login details!", success: false });
+        .json({ error: "Invalid login details!" });
     }
     
   } catch (error) {
     return response
-            .status(500)
-            .json({ error: "Internal server error!", success: false });
+          .status(500)
+          .json({ error: "Internal server error just occured!" });
   }
 };
 

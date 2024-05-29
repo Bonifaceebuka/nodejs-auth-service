@@ -2,7 +2,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const db_connect = require('../config/database');
 const User = db_connect.define('user', {
-    // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -18,7 +17,6 @@ const User = db_connect.define('user', {
         allowNull: false
     }
 }, {
-    // Other model options go 
     timestamps: true
 });
 
