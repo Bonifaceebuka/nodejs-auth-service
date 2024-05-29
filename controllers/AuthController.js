@@ -2,12 +2,23 @@ const User = require("../models/UserModel");
 const { jwtConfig: config } = require("../config");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
+const { signUpValidator } = require("../utils");
 
 exports.signUp = async (request, response) => {
   const { email, password } = request.body;
-  // if(await isValidUser(email) === true){
-  //     return response.status(404).json({ message: 'User email already exists!' });
-  // }
+  const signUpData = {
+    email, password
+  }
+  const { emailValidationMessage, passwordValidationMessage } = signUpValidator(signUpData);
+  if(emailValidationMessage?.message){
+    const message = emailValidationMessage?.message;
+      return response.status(400).json({ error:message});
+  }
+
+  if(passwordValidationMessage?.message){
+    const message = passwordValidationMessage?.message;
+    return response.status(400).json({ error:message});
+  }
 
   const passwordSalt = await bcrypt.genSalt(15)
   const hashedPassword = await bcrypt.hash(password, passwordSalt);
@@ -19,7 +30,7 @@ exports.signUp = async (request, response) => {
   try {
     const user = await User.create(data);
     return response.status(201).json({
-      message: 'Account Created', 
+      message: 'Account created successfully', 
       data: user
   });
   } catch (error) {
