@@ -1,4 +1,4 @@
-# summitech-node-developer-test
+# nodejs-auth-service 
 This is an assessment I did for the role of a NodeJS backend developer
 
 ## Software Engineer Assessment
